@@ -7,3 +7,6 @@ enum yo_response{
 int yo(const char* username, const char* token);
 int yo_link(const char* username, const char* token, const char* link);
 int yo_location(const char* username, const char* token, const char* location);
+
+int yo_all(const char* token);
+int yo_all_link(const char* token, const char* link);
