@@ -1,3 +1,6 @@
+/**
+ * Call response codes.
+ */
 enum yo_response{
     connection_fail = 0,
     yo_ok = 1,
