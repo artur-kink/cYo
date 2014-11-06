@@ -16,8 +16,8 @@ struct response_memory{
  * Store curl response in given userptr.
  */
 size_t curl_response(void* ptr, size_t size, size_t nmemb, void* userptr){
-    size_t realsize = size * nmemb;
-    struct response_memory *mem = (struct response_memory*)userptr;
+    size_t realsize = size*nmemb;
+    struct response_memory* mem = (struct response_memory*)userptr;
     
     if(mem->size == 0){
         mem->response = malloc(realsize + 1);
@@ -74,6 +74,9 @@ int yo(const char* username, const char* token){
 
         //Check result
         if(res != CURLE_OK){
+            if(response.size){
+                free(response.response);
+            }
             return connection_fail;    
         }else if(response.size != 0){
             int response_code = response_to_code(response.response);
@@ -115,6 +118,9 @@ int yo_link(const char* username, const char* token, const char* link){
         curl_easy_cleanup(curl);
         //Check result
         if(res != CURLE_OK){
+            if(response.size){
+                free(response.response);
+            }
             return connection_fail;    
         }else if(response.size != 0){
             int response_code = response_to_code(response.response);
@@ -156,6 +162,9 @@ int yo_location(const char* username, const char* token, const char* location){
         curl_easy_cleanup(curl);
         //Check result
         if(res != CURLE_OK){
+            if(response.size){
+                free(response.response);
+            }
             return connection_fail;    
         }else if(response.size != 0){
             int response_code = response_to_code(response.response);
@@ -193,6 +202,9 @@ int yo_all(const char* token){
         curl_easy_cleanup(curl);
         //Check result
         if(res != CURLE_OK){
+            if(response.size){
+                free(response.response);
+            }
             return connection_fail;    
         }else if(response.size != 0){
             int response_code = response_to_code(response.response);
@@ -232,6 +244,9 @@ int yo_all_link(const char* token, const char* link){
         curl_easy_cleanup(curl);
         //Check result
         if(res != CURLE_OK){
+            if(response.size){
+                free(response.response);
+            }
             return connection_fail;    
         }else if(response.size != 0){
             int response_code = response_to_code(response.response);
